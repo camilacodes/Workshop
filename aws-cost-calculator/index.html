@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Cost Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 AWS Cost Calculator</h1>
+            <p>Calcule os custos estimados dos seus recursos AWS</p>
+        </header>
+
+        <main>
+            <div class="calculator-section">
+                <h2>EC2 Instances</h2>
+                <div class="input-group">
+                    <label for="ec2-instances">Número de instâncias:</label>
+                    <input type="number" id="ec2-instances" min="0" value="1">
+                </div>
+                <div class="input-group">
+                    <label for="ec2-type">Tipo de instância:</label>
+                    <select id="ec2-type">
+                        <option value="0.0116">t3.micro ($0.0116/hora)</option>
+                        <option value="0.0232">t3.small ($0.0232/hora)</option>
+                        <option value="0.0464">t3.medium ($0.0464/hora)</option>
+                        <option value="0.0928">t3.large ($0.0928/hora)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="ec2-hours">Horas por mês:</label>
+                    <input type="number" id="ec2-hours" min="0" max="744" value="744">
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h2>S3 Storage</h2>
+                <div class="input-group">
+                    <label for="s3-storage">Armazenamento (GB):</label>
+                    <input type="number" id="s3-storage" min="0" value="100">
+                </div>
+                <div class="input-group">
+                    <label for="s3-requests">Requests por mês (milhares):</label>
+                    <input type="number" id="s3-requests" min="0" value="10">
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h2>RDS Database</h2>
+                <div class="input-group">
+                    <label for="rds-instances">Número de instâncias:</label>
+                    <input type="number" id="rds-instances" min="0" value="0">
+                </div>
+                <div class="input-group">
+                    <label for="rds-type">Tipo de instância:</label>
+                    <select id="rds-type">
+                        <option value="0.017">db.t3.micro ($0.017/hora)</option>
+                        <option value="0.034">db.t3.small ($0.034/hora)</option>
+                        <option value="0.068">db.t3.medium ($0.068/hora)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="rds-storage">Storage (GB):</label>
+                    <input type="number" id="rds-storage" min="0" value="20">
+                </div>
+            </div>
+
+            <div class="calculator-section">
+                <h2>Lambda Functions</h2>
+                <div class="input-group">
+                    <label for="lambda-requests">Requests por mês (milhões):</label>
+                    <input type="number" id="lambda-requests" min="0" value="1" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="lambda-duration">Duração média (ms):</label>
+                    <input type="number" id="lambda-duration" min="0" value="200">
+                </div>
+                <div class="input-group">
+                    <label for="lambda-memory">Memória (MB):</label>
+                    <select id="lambda-memory">
+                        <option value="128">128 MB</option>
+                        <option value="256">256 MB</option>
+                        <option value="512" selected>512 MB</option>
+                        <option value="1024">1024 MB</option>
+                    </select>
+                </div>
+            </div>
+
+            <button id="calculate-btn" onclick="calculateCosts()">Calcular Custos</button>
+
+            <div id="results" class="results-section" style="display: none;">
+                <h2>Estimativa de Custos Mensais</h2>
+                <div class="cost-breakdown">
+                    <div class="cost-item">
+                        <span class="service">EC2:</span>
+                        <span class="cost" id="ec2-cost">$0.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="service">S3:</span>
+                        <span class="cost" id="s3-cost">$0.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="service">RDS:</span>
+                        <span class="cost" id="rds-cost">$0.00</span>
+                    </div>
+                    <div class="cost-item">
+                        <span class="service">Lambda:</span>
+                        <span class="cost" id="lambda-cost">$0.00</span>
+                    </div>
+                    <div class="cost-item total">
+                        <span class="service">Total:</span>
+                        <span class="cost" id="total-cost">$0.00</span>
+                    </div>
+                </div>
+                <div class="cost-note">
+                    <p>* Preços baseados na região us-east-1</p>
+                    <p>* Valores são estimativas e podem variar</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Desenvolvido com Amazon Q Developer | TDC 2025</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

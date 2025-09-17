@@ -1,0 +1,16 @@
+{
+  "name": "aws-cost-calculator",
+  "version": "1.0.0",
+  "description": "Calculadora simples para estimar custos dos serviços AWS",
+  "main": "index.html",
+  "scripts": {
+    "test": "node test.js",
+    "start": "python -m http.server 8000",
+    "serve": "npx serve ."
+  },
+  "keywords": ["aws", "cost", "calculator", "pricing", "q-developer"],
+  "author": "Q Developer Quest TDC 2025",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
