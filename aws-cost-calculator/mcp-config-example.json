@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "aws-pricing": {
+      "command": "node",
+      "args": ["/Workshop/aws-cost-calculator/mcp-server/server.js"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}
