@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "aws-pricing": {
+      "command": "node",
+      "args": ["./mcp-server/server.js"],
+      "description": "Servidor MCP para cálculos de preços da AWS",
+      "capabilities": {
+        "tools": [
+          "calculate_ec2_cost",
+          "calculate_s3_cost", 
+          "calculate_lambda_cost",
+          "get_pricing_data"
+        ],
+        "resources": [
+          "aws://pricing/ec2",
+          "aws://pricing/s3",
+          "aws://pricing/lambda",
+          "aws://regions"
+        ]
+      }
+    }
+  },
+  "project_info": {
+    "name": "AWS Cost Calculator",
+    "version": "1.0.0",
+    "mcp_integration": true,
+    "created_for": "Q Developer Quest TDC 2025"
+  }
+}

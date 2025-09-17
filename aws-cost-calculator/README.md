@@ -13,6 +13,8 @@ O AWS Cost Calculator foi desenvolvido como uma aplicação web simples e funcio
 - **Funcionalidades**: Calculadora interativa para EC2, S3, RDS e Lambda
 - **Validação**: Inputs validados em tempo real
 - **UX**: Animações suaves e design intuitivo
+- **MCP Server**: Servidor Model Context Protocol para integração com Amazon Q Developer
+- **IaC**: Terraform para deploy automatizado na AWS (S3 + CloudFront)
 
 ### Arquitetura
 ```mermaid
@@ -22,6 +24,11 @@ graph TD
     B --> D[Cost Calculations]
     D --> E[Results Display]
     F[CSS Styling] --> A
+    G[MCP Server] --> H[Amazon Q Developer]
+    G --> I[AWS Pricing API]
+    J[Terraform] --> K[S3 Bucket]
+    J --> L[CloudFront]
+    K --> M[Static Website]
 ```
 
 ## Instruções para rodar
@@ -43,13 +50,37 @@ xdg-open index.html # Linux
 # Python 3
 python -m http.server 8000
 
-# Python 2
-python -m SimpleHTTPServer 8000
-
 # Node.js (se tiver npx)
 npx serve .
 
 # Acesse: http://localhost:8000
+```
+
+### Método 3: Deploy na AWS com Terraform
+```bash
+# Inicializar Terraform
+cd infrastructure
+terraform init
+
+# Planejar deployment
+terraform plan
+
+# Aplicar infraestrutura
+terraform apply
+
+# Acessar via CloudFront URL fornecida
+```
+
+### Método 4: Usar servidor MCP
+```bash
+# Instalar dependências do MCP
+cd mcp-server
+npm install
+
+# Executar servidor MCP
+npm start
+
+# Configurar no Amazon Q Developer usando .amazonq/mcp-config.json
 ```
 
 ### Como usar:
@@ -58,9 +89,7 @@ npx serve .
 3. Veja a estimativa detalhada por serviço
 
 ## Screenshot
-![AWS Cost Calculator](print1.png)
-![AWS Cost Calculator](print2.png)
-![AWS Cost Calculator](print3png)
+![AWS Cost Calculator](screenshot.png)
 
 ## Próximos passos
 
@@ -107,15 +136,27 @@ document.getElementById('ec2-hours').value = '744';
 calculateCosts();
 ```
 
-## Estimativa de Custo (Hospedagem)
+## Estimativa de Custo da Solução
 
-### Hospedagem estática:
+### Hospedagem na AWS (uso mensal estimado):
+- **S3 Storage**: ~$0.50 (20GB armazenamento)
+- **S3 Requests**: ~$0.10 (10K requests GET/PUT)
+- **CloudFront**: ~$1.00 (10GB data transfer)
+- **Route 53** (opcional): ~$0.50 (hosted zone)
+
+**Total estimado AWS: ~$1.60-2.10/mês**
+
+### Alternativas gratuitas:
 - **GitHub Pages**: Gratuito
 - **Netlify**: Gratuito (até 100GB bandwidth)
 - **Vercel**: Gratuito (até 100GB bandwidth)
-- **AWS S3 + CloudFront**: ~$1-5/mês (dependendo do tráfego)
 
-**Total estimado: $0-5/mês**
+### Custos de desenvolvimento:
+- **MCP Server**: Gratuito (roda localmente)
+- **Terraform**: Gratuito (ferramenta open source)
+- **Amazon Q Developer**: Incluído no plano AWS
+
+*Valores baseados na região us-east-1 e calculadora oficial AWS*
 
 ## Tecnologias e Referências
 
@@ -123,6 +164,9 @@ calculateCosts();
 - [MDN Web Docs](https://developer.mozilla.org/) - Documentação HTML/CSS/JS
 - [CSS Gradient Generator](https://cssgradient.io/) - Gerador de gradientes
 - [Mermaid](https://mermaid-js.github.io/) - Diagramas em markdown
+- [Model Context Protocol](https://modelcontextprotocol.io/) - Protocolo MCP
+- [Terraform](https://terraform.io/) - Infrastructure as Code
+- [Amazon Q Developer](https://aws.amazon.com/q/developer/) - AI Assistant
 
 ---
 
