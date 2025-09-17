@@ -58,7 +58,9 @@ npx serve .
 3. Veja a estimativa detalhada por serviço
 
 ## Screenshot
-![AWS Cost Calculator](./screenshot.png)
+![AWS Cost Calculator](print1.png)
+![AWS Cost Calculator](print2.png)
+![AWS Cost Calculator](print3png)
 
 ## Próximos passos
 
